@@ -1,19 +1,26 @@
 import type { NextApiRequest, NextApiResponse } from "next";
 import { v4 as uuidv4 } from "uuid"; // Install this via npm install uuid
 
+// this function handles the image generation request using Runware API
 export default async function handler(req: NextApiRequest, res: NextApiResponse) {
   if (req.method !== "POST") {
     return res.status(405).json({ message: "Method not allowed" });
   }
 
-  const { characterName, description, style, aspectRatio } = req.body;
+  const { characterName, description, style, imageAspectRatio } = req.body;
 
+  if (!imageAspectRatio){
+    return res.status(400).json({ message: "Missing image aspect ratio"});
+  }
+
+// Building the prompt string
   const prompt = `${characterName ? characterName + ", " : ""}${description}, ${style}, ultra-detailed, anime avatar, high quality`;
-  const [width, height] = aspectRatio.split("x").map(Number);
+  // Parse width and height
+  const [width, height] = imageAspectRatio.split("x").map(Number);
 
   const taskUUID = uuidv4();
 
-  console.log("✅ Calling Runware with:", { prompt, width, height, taskUUID });
+  console.log("Calling Runware with:", { prompt, width, height, taskUUID });
 
   try {
     const apiRes = await fetch("https://api.runware.ai/v1", {
@@ -30,7 +37,7 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
           outputType: "URL",
           outputFormat: "JPG",
           deliveryMethod: "sync",
-          model: "civitai:129218@141668", // Default Runware SD model
+          model: "civitai:129218@141668", 
           width,
           height,
           steps: 30,
@@ -52,8 +59,12 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
     if (!imageUrl) {
       return res.status(500).json({ message: "No image returned from API" });
     }
+    console.log("✅ Sending back image URL:", imageUrl);
 
-    return res.status(200).json({ imageUrl });
+    return res.status(200).json({
+        imageUrl: data.data[0].imageURL, 
+        taskUUID: data.data[0].taskUUID,
+    });
   } catch (error) {
     console.error("Internal error:", error);
     return res.status(500).json({ message: "Internal server error", error });
