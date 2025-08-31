@@ -67,7 +67,7 @@ export default function PromptForm() {
     const [videoUrl, setVideoUrl] = useState("");
     const [videoLoading, setvideoLoading] = useState(false);
     const [taskUUID, setTaskUUID] = useState("");
-    
+
     // form input handler
     const handleChange = (
         e: React.ChangeEvent<
@@ -149,7 +149,7 @@ export default function PromptForm() {
             if (res.ok && videoUrl) {
                 setVideoUrl(videoUrl);
 
-                console.log("🎥 Runware full video data:", data);
+                console.log("Runware full video data:", data);
 
             } else {
                 console.error("Video generation failed:", data);
@@ -167,23 +167,51 @@ export default function PromptForm() {
         <div>
             <form
                 onSubmit={handleSubmit}
-                className="space-y-4 bg-white p-6 rounded shadow"
+                className="grid grid-cols-1 md:grid-cols-2 gap-4 bg-white p-6 rounded shadow"
             >
+                {/* Row 1: Character Name + Anime Style */}
                 <div>
-                    <label className="block font-semibold">
-                        Character Name (optional)
-                    </label>
+                    <label className="block font-semibold">Character Name (optional)</label>
                     <input
                         type="text"
                         name="characterName"
                         value={form.characterName}
                         onChange={handleChange}
-                        className="w-full border p-2 rounded"
+                        // className="w-full border p-2 rounded"
+                        className="w-full border border-gray-300 p-2 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
                         placeholder="e.g. Hikari"
                     />
                 </div>
 
+                <div className="bg-red-500 text-white p-4">
+  If this is red, Tailwind is working
+</div>
+
+
                 <div>
+                    <label className="block font-semibold">Anime Style</label>
+                    <select
+                        name="style"
+                        value={form.style}
+                        onChange={handleChange}
+                        // className="w-full border p-2 rounded"
+                        className="w-full border border-gray-300 p-2 rounded-lg focus:outline-none focus:ring-2 focus:ring-brandPurple"
+
+                    >
+                        {animeStyles.map((style) => (
+                            <option key={style.label} value={style.value}>
+                                {style.label}
+                            </option>
+                        ))}
+                    </select>
+                </div>
+
+                <div className="bg-brandPurple text-white p-4">
+  This should have a purple background
+</div>
+
+                {/* Row 2: Full-width Description */}
+                <div className="md:col-span-2">
                     <label className="block font-semibold">Avatar Description</label>
                     <textarea
                         name="description"
@@ -196,29 +224,16 @@ export default function PromptForm() {
                     />
                 </div>
 
-                <div>
-                    <label className="block font-semibold">Anime Style</label>
-                    <select
-                        name="style"
-                        value={form.style}
-                        onChange={handleChange}
-                        className="w-full border p-2 rounded"
-                    >
-                        {animeStyles.map((style) => (
-                            <option key={style.label} value={style.value}>
-                                {style.label}
-                            </option>
-                        ))}
-                    </select>
-                </div>
-
+                {/* Row 3: Aspect Ratios */}
                 <div>
                     <label className="block font-semibold">Image Aspect Ratio</label>
                     <select
                         name="imageAspectRatio"
                         value={form.imageAspectRatio}
                         onChange={handleChange}
-                        className="w-full border p-2 rounded"
+                        // className="w-full border p-2 rounded"
+                        className="w-full border border-gray-300 p-2 rounded-lg focus:outline-none focus:ring-2 focus:ring-brandPurple"
+
                     >
                         {imageAspectRatios.map((ratio) => (
                             <option key={ratio.label} value={ratio.value}>
@@ -234,22 +249,33 @@ export default function PromptForm() {
                         name="videoAspectRatio"
                         value={form.videoAspectRatio}
                         onChange={handleChange}
-                        className="w-full border p-2 rounded"
+                        // className="w-full border p-2 rounded"
+                        className="w-full border border-gray-300 p-2 rounded-lg focus:outline-none focus:ring-2 focus:ring-brandPurple"
+
                     >
                         {videoAspectRatios.map((ratio) => (
-                            <option key={ratio.label} value={ratio.value}>{ratio.label}</option>
+                            <option key={ratio.label} value={ratio.value}>
+                                {ratio.label}
+                            </option>
                         ))}
                     </select>
                 </div>
 
-                <button
-                    type="submit"
-                    disabled={loading}
-                    className="bg-blue-600 text-white px-4 py-2 rounded hover:bg-blue-700 transition"
-                >
-                    {loading ? "Generating..." : "Generate Avatar"}
-                </button>
+                {/* Row 4: Centered Submit Button (spans 2 cols) */}
+                <div className="md:col-span-2 flex justify-center">
+                    <button
+                        type="submit"
+                        disabled={loading}
+                        // className="bg-blue-600 text-white px-6 py-2 rounded hover:bg-blue-700 transition"
+                        // className="bg-blue-600 text-white px-6 py-3 rounded-lg font-semibold hover:bg-blue-700 transition-all focus:ring-2 focus:ring-blue-400"
+                        className="bg-brandPurple text-white px-6 py-3 rounded-lg font-semibold hover:bg-purple-700 transition focus:ring-2 focus:ring-brandPurple"
+
+                    >
+                        {loading ? "Generating..." : "Generate Avatar"}
+                    </button>
+                </div>
             </form>
+
 
             {/* <div className="mt-6">
                 <label className="block font-semibold">Motion Prompt</label>
@@ -328,7 +354,7 @@ export default function PromptForm() {
                                 autoPlay
                                 loop
                                 onError={(e) => {
-                                    console.error("❌ Video failed to load", e);
+                                    console.error("Video failed to load", e);
                                     alert("Video failed to load. Try reloading the page or regenerating.");
                                 }}
                                 preload="auto"

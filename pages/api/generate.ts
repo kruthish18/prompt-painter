@@ -59,7 +59,7 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
     if (!imageUrl) {
       return res.status(500).json({ message: "No image returned from API" });
     }
-    console.log("✅ Sending back image URL:", imageUrl);
+    console.log("Sending back image URL:", imageUrl);
 
     return res.status(200).json({
         imageUrl: data.data[0].imageURL, 
