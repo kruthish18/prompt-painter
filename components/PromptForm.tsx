@@ -374,7 +374,11 @@ export default function PromptForm() {
                         // className="bg-blue-600 text-white px-6 py-2 rounded hover:bg-blue-700 transition"
                         // className="bg-blue-600 text-white px-6 py-3 rounded-lg font-semibold hover:bg-blue-700 transition-all focus:ring-2 focus:ring-blue-400"
                         // className="bg-brandPurple text-white px-6 py-3 mt-4 rounded-lg font-semibold hover:bg-purple-700 transition focus:ring-2 focus:ring-brandPurple"
-                        className="w-full py-3 px-6 bg-gradient-to-r from-purple-500 to-indigo-600 text-white font-semibold rounded-full shadow-lg hover:shadow-2xl hover:scale-105 transform transition duration-300 ease-in-out focus:outline-none focus:ring-2 focus:ring-purple-300"    
+                        // className="w-full py-3 px-6 bg-gradient-to-r from-purple-500 to-indigo-600 text-white font-semibold rounded-full shadow-lg hover:shadow-2xl hover:scale-105 transform transition duration-300 ease-in-out focus:outline-none focus:ring-2 focus:ring-purple-300"    
+                        // className="w-full py-3 px-6 var(--color-brand-purple) text-white font-semibold rounded-full shadow-lg hover:shadow-2xl hover:scale-105 transform transition duration-300 ease-in-out focus:outline-none focus:ring-2 focus:ring-brandPurple/50"
+                        // style={{ backgroundColor: 'var(--color-brand-purple)' }}
+                        className="w-full py-3 px-6 text-white font-semibold rounded-[8px] shadow-md hover:shadow-lg hover:scale-105 transform transition duration-300 ease-in-out focus:outline-none focus:ring-2 focus:ring-[var(--color-brand-purple)]"
+                        style={{ backgroundColor: "var(--color-brand-purple)" }}
                     >
                         {loading ? "Generating..." : "Generate Avatar"}
                     </button>
@@ -420,12 +424,21 @@ export default function PromptForm() {
 
                     {/* ✨ New: Video Creation Section */}
                     <div className="mt-8 text-left max-w-lg mx-auto">
-                        <button
-                            className="rounded hover:bg-purple-700 transition bg-gradient-to-r from-purple-500 to-indigo-600 text-white px-4 py-2 font-semibold rounded-full shadow-lg hover:shadow-2xl hover:scale-105 transform transition duration-300 ease-in-out focus:outline-none focus:ring-2 focus:ring-purple-300"
+                        {/* <button
+                            className="rounded-[8px] hover:bg-purple-700 transition bg-gradient-to-r from-purple-500 to-indigo-600 text-white px-4 py-2 font-semibold rounded-full shadow-lg hover:shadow-2xl hover:scale-105 transform transition duration-300 ease-in-out focus:outline-none focus:ring-2 focus:ring-purple-300"
                             onClick={() => setShowVideoPrompt(true)}
                         >
-                            🎥 Create Anime Video
+                            Create Anime Video
+                        </button> */}
+
+                        <button
+                            className="w-full rounded-[8px] text-white px-4 py-2 font-semibold shadow-md hover:shadow-lg hover:scale-105 transform transition duration-300 ease-in-out focus:outline-none focus:ring-2 focus:ring-[var(--color-brand-purple)]"
+                            style={{ backgroundColor: "var(--color-brand-purple)" }}
+                            onClick={() => setShowVideoPrompt(true)}
+                        >
+                            Create Anime Video
                         </button>
+
 
                         {showVideoPrompt && (
                             <div className="mt-4 space-y-2">
@@ -439,13 +452,23 @@ export default function PromptForm() {
                                     onChange={(e) => setVideoPrompt(e.target.value)}
                                     rows={3}
                                 />
-                                <button
+                                {/* <button
                                     className="w-full py-3 px-6 bg-gradient-to-r from-purple-500 to-indigo-600 text-white font-semibold rounded-full shadow-lg hover:shadow-2xl hover:scale-105 transform transition duration-300 ease-in-out focus:outline-none focus:ring-2 focus:ring-purple-300"
                                     onClick={handleVideoGenerate}
                                     disabled={videoLoading}
                                 >
                                     {videoLoading ? "Generating Video..." : "Generate Video"}
+                                </button> */}
+
+                                <button
+                                    className="w-full py-3 px-6 text-white font-semibold rounded-[8px] shadow-md hover:shadow-lg hover:scale-105 transform transition duration-300 ease-in-out focus:outline-none focus:ring-2 focus:ring-[var(--color-brand-purple)]"
+                                    style={{ backgroundColor: "var(--color-brand-purple)" }}
+                                    onClick={handleVideoGenerate}
+                                    disabled={videoLoading}
+                                >
+                                    {videoLoading ? "Generating Video..." : "Generate Video"}
                                 </button>
+
                             </div>
                         )}
                     </div>
