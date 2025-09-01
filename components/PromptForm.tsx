@@ -49,6 +49,17 @@ const videoAspectRatios = [
     { label: "Portrait (9:16)", value: "1080x1920" },
 ];
 
+// const videoAspectRatios = [
+//     { label: "1:1 Square - 480p", value: "640x640" },
+//     { label: "1:1 Square - 1080p", value: "1440x1440" },
+//     { label: "16:9 Landscape - 480p", value: "1920x1088" },
+//     { label: "16:9 Landscape - 1080p", value: "1920x1088" },
+//     { label: "21:9 Ultra-Wide/Landscape - 480p", value: "960x416" },
+//     { label: "21:9 Ultra-Wide/Landscape - 480p", value: "2176x928" },
+//     { label: "9:16 Tall/Portrait - 480p", value: "480x864" },
+//     { label: "9:16 Tall/Portrait - 480p", value: "1088x1920" },
+// ];
+
 export default function PromptForm() {
     const [form, setForm] = useState<FormData>({
         characterName: "",
@@ -252,6 +263,7 @@ export default function PromptForm() {
             > */}
             <form
                 onSubmit={handleSubmit}
+                className="animate-fade-in"
                 style={{
                     display: 'grid',
                     gridTemplateColumns: 'repeat(auto-fit, minmax(300px, 1fr))',
@@ -272,13 +284,9 @@ export default function PromptForm() {
                         value={form.characterName}
                         onChange={handleChange}
                         // className="w-full border p-2 rounded"
-                        className="w-full border border-gray-300 p-2 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
+                        className="w-full px-4 py-3 rounded-xl border border-gray-300 focus:ring-2 focus:ring-[var(--color-brand-purple)] focus:outline-none"
                         placeholder="e.g. Hikari"
                     />
-                </div>
-
-                <div className="bg-red-500 text-white p-4">
-                    If this is red, Tailwind is working
                 </div>
 
 
@@ -291,7 +299,7 @@ export default function PromptForm() {
                         // className="w-full border p-2 rounded"
                         // className="w-full border border-gray-300 p-2 rounded-lg focus:outline-none focus:ring-2 focus:ring-brandPurple"
                         // className="w-full border border-gray-300 p-2 rounded-lg focus:outline-none focus:ring-2 focus:ring-brandPurple bg-white text-gray-800"
-                        className="w-full border border-gray-300 p-2 rounded-lg focus:outline-none focus:ring-2 focus:ring-brand-purple bg-white text-gray-800"
+                        className="w-full px-4 py-3 rounded-xl border border-gray-300 focus:ring-2 focus:ring-[var(--color-brand-purple)] focus:outline-none"
                     >
                         {animeStyles.map((style) => (
                             <option key={style.label} value={style.value}>
@@ -303,9 +311,7 @@ export default function PromptForm() {
 
                 {/* <div className="bg-brandPurple text-white p-4"> */}
                 {/* <div className="bg-brand-purple text-white p-4"> */}
-                <div className="bg-brand-purple text-white p-4">
-                    This should have a purple background
-                </div>
+
 
                 {/* Row 2: Full-width Description */}
                 <div className="md:col-span-2">
@@ -314,7 +320,7 @@ export default function PromptForm() {
                         name="description"
                         value={form.description}
                         onChange={handleChange}
-                        className="w-full border p-2 rounded"
+                        className="w-full px-4 py-3 rounded-xl border border-gray-300 focus:ring-2 focus:ring-[var(--color-brand-purple)] focus:outline-none"
                         rows={3}
                         placeholder="e.g. pink-haired girl with a cyberpunk jacket"
                         required
@@ -330,7 +336,7 @@ export default function PromptForm() {
                         onChange={handleChange}
                         // className="w-full border p-2 rounded"
                         // className="w-full border border-gray-300 p-2 rounded-lg focus:outline-none focus:ring-2 focus:ring-brandPurple"
-                        className="w-full border border-gray-300 p-2 rounded-lg focus:outline-none focus:ring-2 focus:ring-brandPurple bg-white text-gray-800"
+                        className="w-full px-4 py-3 rounded-xl border border-gray-300 focus:ring-2 focus:ring-[var(--color-brand-purple)] focus:outline-none"
 
                     >
                         {imageAspectRatios.map((ratio) => (
@@ -349,7 +355,7 @@ export default function PromptForm() {
                         onChange={handleChange}
                         // className="w-full border p-2 rounded"
                         // className="w-full border border-gray-300 p-2 rounded-lg focus:outline-none focus:ring-2 focus:ring-brandPurple"
-                        className="w-full border border-gray-300 p-2 rounded-lg focus:outline-none focus:ring-2 focus:ring-brandPurple bg-white text-gray-800"
+                        className="w-full px-4 py-3 rounded-xl border border-gray-300 focus:ring-2 focus:ring-[var(--color-brand-purple)] focus:outline-none"
 
                     >
                         {videoAspectRatios.map((ratio) => (
@@ -368,16 +374,11 @@ export default function PromptForm() {
                         // className="bg-blue-600 text-white px-6 py-2 rounded hover:bg-blue-700 transition"
                         // className="bg-blue-600 text-white px-6 py-3 rounded-lg font-semibold hover:bg-blue-700 transition-all focus:ring-2 focus:ring-blue-400"
                         // className="bg-brandPurple text-white px-6 py-3 mt-4 rounded-lg font-semibold hover:bg-purple-700 transition focus:ring-2 focus:ring-brandPurple"
-                        className="bg-brand-purple text-white px-6 py-3 mt-4 rounded-lg font-semibold hover:opacity-90 transition focus:ring-2 focus:ring-brand-purple"    
+                        className="w-full py-3 px-6 bg-gradient-to-r from-purple-500 to-indigo-600 text-white font-semibold rounded-full shadow-lg hover:shadow-2xl hover:scale-105 transform transition duration-300 ease-in-out focus:outline-none focus:ring-2 focus:ring-purple-300"    
                     >
                         {loading ? "Generating..." : "Generate Avatar"}
                     </button>
                 </div>
-                {/* <div className="bg-brandPurple text-white p-4"> */}
-                <div className="bg-brand-purple text-white p-4">
-                    If this has purple background, config is working
-                </div>
-
 
             </form>
 
@@ -414,13 +415,13 @@ export default function PromptForm() {
                         download="anime-avatar.png"
                         className="inline-block mt-2 text-blue-600 underline"
                     >
-                        Download Image
+                        Download Image ⬇️
                     </a>
 
                     {/* ✨ New: Video Creation Section */}
                     <div className="mt-8 text-left max-w-lg mx-auto">
                         <button
-                            className="bg-purple-600 text-white px-4 py-2 rounded hover:bg-purple-700 transition"
+                            className="rounded hover:bg-purple-700 transition bg-gradient-to-r from-purple-500 to-indigo-600 text-white px-4 py-2 font-semibold rounded-full shadow-lg hover:shadow-2xl hover:scale-105 transform transition duration-300 ease-in-out focus:outline-none focus:ring-2 focus:ring-purple-300"
                             onClick={() => setShowVideoPrompt(true)}
                         >
                             🎥 Create Anime Video
@@ -432,14 +433,14 @@ export default function PromptForm() {
                                     Describe the Animation
                                 </label>
                                 <textarea
-                                    className="w-full border p-2 rounded"
+                                    className="w-full px-4 py-3 rounded-xl border border-gray-300 focus:ring-2 focus:ring-[var(--color-brand-purple)] focus:outline-none"
                                     placeholder="e.g. wind blowing through hair, character blinking slowly"
                                     value={videoPrompt}
                                     onChange={(e) => setVideoPrompt(e.target.value)}
                                     rows={3}
                                 />
                                 <button
-                                    className="bg-green-600 text-white px-4 py-2 rounded hover:bg-green-700 transition"
+                                    className="w-full py-3 px-6 bg-gradient-to-r from-purple-500 to-indigo-600 text-white font-semibold rounded-full shadow-lg hover:shadow-2xl hover:scale-105 transform transition duration-300 ease-in-out focus:outline-none focus:ring-2 focus:ring-purple-300"
                                     onClick={handleVideoGenerate}
                                     disabled={videoLoading}
                                 >
@@ -474,7 +475,7 @@ export default function PromptForm() {
                                 download="anime-avatar-video.mp4"
                                 className="inline-block mt-2 text-green-600 underline"
                             >
-                                Download Video
+                                Download Video ⬇️
                             </a>
                         </div>
                     )}
