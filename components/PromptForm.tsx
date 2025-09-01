@@ -43,22 +43,22 @@ const imageAspectRatios = [
     { label: "768x512", value: "768x512" },
 ];
 
-const videoAspectRatios = [
-    { label: "Square (1:1)", value: "1080x1080" },
-    { label: "Landscape (16:9)", value: "1920x1080" },
-    { label: "Portrait (9:16)", value: "1080x1920" },
-];
-
 // const videoAspectRatios = [
-//     { label: "1:1 Square - 480p", value: "640x640" },
-//     { label: "1:1 Square - 1080p", value: "1440x1440" },
-//     { label: "16:9 Landscape - 480p", value: "1920x1088" },
-//     { label: "16:9 Landscape - 1080p", value: "1920x1088" },
-//     { label: "21:9 Ultra-Wide/Landscape - 480p", value: "960x416" },
-//     { label: "21:9 Ultra-Wide/Landscape - 480p", value: "2176x928" },
-//     { label: "9:16 Tall/Portrait - 480p", value: "480x864" },
-//     { label: "9:16 Tall/Portrait - 480p", value: "1088x1920" },
+//     { label: "Square (1:1)", value: "1080x1080" },
+//     { label: "Landscape (16:9)", value: "1920x1080" },
+//     { label: "Portrait (9:16)", value: "1080x1920" },
 // ];
+
+const videoAspectRatios = [
+    { label: "1:1 Square - 480p", value: "640x640" },
+    { label: "1:1 Square - 1080p", value: "1440x1440" },
+    { label: "16:9 Landscape - 480p", value: "1920x1088" },
+    { label: "16:9 Landscape - 1080p", value: "1920x1088" },
+    { label: "21:9 Ultra-Wide/Landscape - 480p", value: "960x416" },
+    { label: "21:9 Ultra-Wide/Landscape - 480p", value: "2176x928" },
+    { label: "9:16 Tall/Portrait - 480p", value: "480x864" },
+    { label: "9:16 Tall/Portrait - 480p", value: "1088x1920" },
+];
 
 export default function PromptForm() {
     const [form, setForm] = useState<FormData>({
