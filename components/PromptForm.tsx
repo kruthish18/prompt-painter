@@ -1,3 +1,5 @@
+// Main form component for collecting user inputs to generate an anime avatar and optionally a video
+
 import { useState } from "react";
 
 // Interface for UI form fields
@@ -37,6 +39,7 @@ const animeStyles = [
     },
 ];
 
+// Dropdown options for image aspect ratios
 const imageAspectRatios = [
     { label: "512x512", value: "512x512" },
     { label: "512x768", value: "512x768" },
@@ -49,6 +52,7 @@ const imageAspectRatios = [
 //     { label: "Portrait (9:16)", value: "1080x1920" },
 // ];
 
+// Video aspect ratio options (used in dropdown)
 const videoAspectRatios = [
     { label: "1:1 Square - 480p", value: "640x640" },
     { label: "1:1 Square - 1080p", value: "1440x1440" },
@@ -61,6 +65,7 @@ const videoAspectRatios = [
 ];
 
 export default function PromptForm() {
+    // State Definitions
     const [form, setForm] = useState<FormData>({
         characterName: "",
         description: "",
@@ -79,7 +84,7 @@ export default function PromptForm() {
     const [videoLoading, setvideoLoading] = useState(false);
     const [taskUUID, setTaskUUID] = useState("");
 
-    // form input handler
+    // Update form values on input
     const handleChange = (
         e: React.ChangeEvent<
             HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement
@@ -88,7 +93,7 @@ export default function PromptForm() {
         setForm({ ...form, [e.target.name]: e.target.value });
     };
 
-    // avator image generation handler
+    // Submit form to generate image
     const handleSubmit = async (e: React.FormEvent) => {
         e.preventDefault();
         setLoading(true);
@@ -119,7 +124,7 @@ export default function PromptForm() {
         }
     };
 
-    // video generation handler
+    // Submit image + prompt to generate video
     const handleVideoGenerate = async () => {
         if (!imageUrl || !videoPrompt.trim()) {
             alert("Image or prompt missing");
@@ -222,45 +227,11 @@ export default function PromptForm() {
         opacity: loading ? 0.7 : 1,
     };
 
+    // Render Form
     return (
         <div style={{ fontFamily: 'Inter, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif' }}>
-            {/* // ADDED THIS ENTIRE SECTION (NEW): */}
-            <style>
-                {`
-                    @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap');
-                    
-                    .custom-input:focus {
-                    border-color: #633cff !important;
-                    box-shadow: 0 0 0 3px rgba(99, 60, 255, 0.1) !important;
-                    }
-                    
-                    .custom-button:hover:not(:disabled) {
-                    background-color: #5b34e8 !important;
-                    transform: translateY(-1px);
-                    box-shadow: 0 4px 12px rgba(99, 60, 255, 0.3);
-                    }
-                    
-                    .custom-select:focus {
-                    border-color: #633cff !important;
-                    box-shadow: 0 0 0 3px rgba(99, 60, 255, 0.1) !important;
-                    }
-                    
-                    .test-card {
-                    background: linear-gradient(135deg, #633cff, #7c4dff);
-                    border-radius: 8px;
-                    padding: 16px;
-                    color: white;
-                    font-family: 'Inter', sans-serif;
-                    font-weight: 500;
-                    text-align: center;
-                    margin-bottom: 16px;
-                    }
-  `}
-            </style>
-            {/* <form
-                onSubmit={handleSubmit}
-                className="grid grid-cols-1 md:grid-cols-2 gap-4 bg-white p-6 rounded shadow"
-            > */}
+    
+            {/* The full form layout is in a grid that adjusts responsively */}
             <form
                 onSubmit={handleSubmit}
                 className="animate-fade-in"
@@ -283,12 +254,10 @@ export default function PromptForm() {
                         name="characterName"
                         value={form.characterName}
                         onChange={handleChange}
-                        // className="w-full border p-2 rounded"
                         className="w-full px-4 py-3 rounded-xl border border-gray-300 focus:ring-2 focus:ring-[var(--color-brand-purple)] focus:outline-none"
                         placeholder="e.g. Hikari"
                     />
                 </div>
-
 
                 <div>
                     <label className="block font-semibold">Anime Style</label>
@@ -308,10 +277,6 @@ export default function PromptForm() {
                         ))}
                     </select>
                 </div>
-
-                {/* <div className="bg-brandPurple text-white p-4"> */}
-                {/* <div className="bg-brand-purple text-white p-4"> */}
-
 
                 {/* Row 2: Full-width Description */}
                 <div className="md:col-span-2">
@@ -422,7 +387,7 @@ export default function PromptForm() {
                         Download Image ⬇️
                     </a>
 
-                    {/* ✨ New: Video Creation Section */}
+                    {/* New: Video Creation Section */}
                     <div className="mt-8 text-left max-w-lg mx-auto">
                         {/* <button
                             className="rounded-[8px] hover:bg-purple-700 transition bg-gradient-to-r from-purple-500 to-indigo-600 text-white px-4 py-2 font-semibold rounded-full shadow-lg hover:shadow-2xl hover:scale-105 transform transition duration-300 ease-in-out focus:outline-none focus:ring-2 focus:ring-purple-300"
@@ -473,7 +438,7 @@ export default function PromptForm() {
                         )}
                     </div>
 
-                    {/* 🎬 Video Preview */}
+                    {/* Video Preview */}
                     {videoUrl && (
                         <div className="mt-6">
                             <video
