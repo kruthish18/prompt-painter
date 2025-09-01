@@ -1,9 +1,24 @@
-@import "tailwindcss";
+/* @import "tailwindcss";
+/* @import "tailwindcss/utilities"; */
+/* @import "tailwindcss/preflight";
+@tailwind utilities; */
+
+/* @tailwind base;
+@tailwind components; */
+
+/* @theme {
+  --color-brand-purple: #633cff;
+  --font-family-sans: Inter, sans-serif;
+}
 
 :root {
   --background: #ffffff;
   --foreground: #171717;
-}
+} */
+
+/* @tailwind base;
+@tailwind components; */
+/* @tailwind components; */
 
 /* @theme inline {
   --color-background: var(--background);
@@ -12,7 +27,7 @@
   --font-mono: var(--font-geist-mono);
 } */
 
-@media (prefers-color-scheme: dark) {
+/* @media (prefers-color-scheme: dark) {
   :root {
     --background: #0a0a0a;
     --foreground: #ededed;
@@ -23,10 +38,40 @@ body {
   background: var(--background);
   color: var(--foreground);
   font-family: 'Inter', sans-serif;
-}
+} */
 
 /* body {
   background: var(--background);
   color: var(--foreground);
   font-family: Arial, Helvetica, sans-serif;
-} */
+/* } */
+
+
+
+
+@import "tailwindcss";
+
+/* Tailwind v4 design tokens live here */
+@theme {
+  --color-brand-purple: #633cff;
+  --font-sans: Inter, ui-sans-serif, system-ui, sans-serif;
+}
+
+/* Optional app vars for your page bg/fg */
+:root {
+  --background: #ffffff;
+  --foreground: #171717;
+}
+@media (prefers-color-scheme: dark) {
+  :root {
+    --background: #0a0a0a;
+    --foreground: #ededed;
+  }
+}
+
+/* Global body style */
+body {
+  background: var(--background);
+  color: var(--foreground);
+  font-family: var(--font-sans);
+}

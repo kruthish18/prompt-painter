@@ -122,7 +122,7 @@ export default function PromptForm() {
         setvideoLoading(true);
         setVideoUrl("");
 
-        console.log("🚀 Submitting for video with values:", {
+        console.log("Submitting for video with values:", {
             prompt: videoPrompt,
             width,
             height,
@@ -143,7 +143,6 @@ export default function PromptForm() {
             });
 
             const data = await res.json();
-
             const videoUrl = data.videoUrl;
 
             if (res.ok && videoUrl) {
@@ -163,11 +162,106 @@ export default function PromptForm() {
         }
     };
 
+    const inputStyle = {
+        fontFamily: 'Inter, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif',
+        fontSize: '14px',
+        fontWeight: '400',
+        lineHeight: '1.5',
+        color: '#374151',
+        backgroundColor: '#ffffff',
+        border: '1.5px solid #e5e7eb',
+        borderRadius: '8px',
+        padding: '12px 16px',
+        width: '100%',
+        transition: 'all 0.2s ease-in-out',
+        outline: 'none',
+    };
+
+    const selectStyle = {
+        ...inputStyle,
+        appearance: 'none' as const,
+        backgroundImage: `url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' fill='none' viewBox='0 0 20 20'%3e%3cpath stroke='%236b7280' stroke-linecap='round' stroke-linejoin='round' stroke-width='1.5' d='M6 8l4 4 4-4'/%3e%3c/svg%3e")`,
+        backgroundPosition: 'right 12px center',
+        backgroundRepeat: 'no-repeat',
+        backgroundSize: '16px',
+        paddingRight: '40px',
+    };
+
+    const labelStyle = {
+        fontFamily: 'Inter, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif',
+        fontSize: '14px',
+        fontWeight: '600',
+        color: '#111827',
+        marginBottom: '6px',
+        display: 'block',
+    };
+
+    const buttonStyle = {
+        fontFamily: 'Inter, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif',
+        fontSize: '16px',
+        fontWeight: '600',
+        color: '#ffffff',
+        backgroundColor: '#633cff',
+        border: 'none',
+        borderRadius: '8px',
+        padding: '14px 32px',
+        cursor: loading ? 'not-allowed' : 'pointer',
+        transition: 'all 0.2s ease-in-out',
+        outline: 'none',
+        opacity: loading ? 0.7 : 1,
+    };
+
     return (
-        <div>
-            <form
+        <div style={{ fontFamily: 'Inter, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif' }}>
+            {/* // ADDED THIS ENTIRE SECTION (NEW): */}
+            <style>
+                {`
+                    @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap');
+                    
+                    .custom-input:focus {
+                    border-color: #633cff !important;
+                    box-shadow: 0 0 0 3px rgba(99, 60, 255, 0.1) !important;
+                    }
+                    
+                    .custom-button:hover:not(:disabled) {
+                    background-color: #5b34e8 !important;
+                    transform: translateY(-1px);
+                    box-shadow: 0 4px 12px rgba(99, 60, 255, 0.3);
+                    }
+                    
+                    .custom-select:focus {
+                    border-color: #633cff !important;
+                    box-shadow: 0 0 0 3px rgba(99, 60, 255, 0.1) !important;
+                    }
+                    
+                    .test-card {
+                    background: linear-gradient(135deg, #633cff, #7c4dff);
+                    border-radius: 8px;
+                    padding: 16px;
+                    color: white;
+                    font-family: 'Inter', sans-serif;
+                    font-weight: 500;
+                    text-align: center;
+                    margin-bottom: 16px;
+                    }
+  `}
+            </style>
+            {/* <form
                 onSubmit={handleSubmit}
                 className="grid grid-cols-1 md:grid-cols-2 gap-4 bg-white p-6 rounded shadow"
+            > */}
+            <form
+                onSubmit={handleSubmit}
+                style={{
+                    display: 'grid',
+                    gridTemplateColumns: 'repeat(auto-fit, minmax(300px, 1fr))',
+                    gap: '20px',
+                    backgroundColor: '#ffffff',
+                    padding: '32px',
+                    borderRadius: '12px',
+                    boxShadow: '0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06)',
+                    border: '1px solid #f3f4f6',
+                }}
             >
                 {/* Row 1: Character Name + Anime Style */}
                 <div>
@@ -184,8 +278,8 @@ export default function PromptForm() {
                 </div>
 
                 <div className="bg-red-500 text-white p-4">
-  If this is red, Tailwind is working
-</div>
+                    If this is red, Tailwind is working
+                </div>
 
 
                 <div>
@@ -195,8 +289,9 @@ export default function PromptForm() {
                         value={form.style}
                         onChange={handleChange}
                         // className="w-full border p-2 rounded"
-                        className="w-full border border-gray-300 p-2 rounded-lg focus:outline-none focus:ring-2 focus:ring-brandPurple"
-
+                        // className="w-full border border-gray-300 p-2 rounded-lg focus:outline-none focus:ring-2 focus:ring-brandPurple"
+                        // className="w-full border border-gray-300 p-2 rounded-lg focus:outline-none focus:ring-2 focus:ring-brandPurple bg-white text-gray-800"
+                        className="w-full border border-gray-300 p-2 rounded-lg focus:outline-none focus:ring-2 focus:ring-brand-purple bg-white text-gray-800"
                     >
                         {animeStyles.map((style) => (
                             <option key={style.label} value={style.value}>
@@ -206,9 +301,11 @@ export default function PromptForm() {
                     </select>
                 </div>
 
-                <div className="bg-brandPurple text-white p-4">
-  This should have a purple background
-</div>
+                {/* <div className="bg-brandPurple text-white p-4"> */}
+                {/* <div className="bg-brand-purple text-white p-4"> */}
+                <div className="bg-brand-purple text-white p-4">
+                    This should have a purple background
+                </div>
 
                 {/* Row 2: Full-width Description */}
                 <div className="md:col-span-2">
@@ -232,7 +329,8 @@ export default function PromptForm() {
                         value={form.imageAspectRatio}
                         onChange={handleChange}
                         // className="w-full border p-2 rounded"
-                        className="w-full border border-gray-300 p-2 rounded-lg focus:outline-none focus:ring-2 focus:ring-brandPurple"
+                        // className="w-full border border-gray-300 p-2 rounded-lg focus:outline-none focus:ring-2 focus:ring-brandPurple"
+                        className="w-full border border-gray-300 p-2 rounded-lg focus:outline-none focus:ring-2 focus:ring-brandPurple bg-white text-gray-800"
 
                     >
                         {imageAspectRatios.map((ratio) => (
@@ -250,7 +348,8 @@ export default function PromptForm() {
                         value={form.videoAspectRatio}
                         onChange={handleChange}
                         // className="w-full border p-2 rounded"
-                        className="w-full border border-gray-300 p-2 rounded-lg focus:outline-none focus:ring-2 focus:ring-brandPurple"
+                        // className="w-full border border-gray-300 p-2 rounded-lg focus:outline-none focus:ring-2 focus:ring-brandPurple"
+                        className="w-full border border-gray-300 p-2 rounded-lg focus:outline-none focus:ring-2 focus:ring-brandPurple bg-white text-gray-800"
 
                     >
                         {videoAspectRatios.map((ratio) => (
@@ -268,12 +367,18 @@ export default function PromptForm() {
                         disabled={loading}
                         // className="bg-blue-600 text-white px-6 py-2 rounded hover:bg-blue-700 transition"
                         // className="bg-blue-600 text-white px-6 py-3 rounded-lg font-semibold hover:bg-blue-700 transition-all focus:ring-2 focus:ring-blue-400"
-                        className="bg-brandPurple text-white px-6 py-3 rounded-lg font-semibold hover:bg-purple-700 transition focus:ring-2 focus:ring-brandPurple"
-
+                        // className="bg-brandPurple text-white px-6 py-3 mt-4 rounded-lg font-semibold hover:bg-purple-700 transition focus:ring-2 focus:ring-brandPurple"
+                        className="bg-brand-purple text-white px-6 py-3 mt-4 rounded-lg font-semibold hover:opacity-90 transition focus:ring-2 focus:ring-brand-purple"    
                     >
                         {loading ? "Generating..." : "Generate Avatar"}
                     </button>
                 </div>
+                {/* <div className="bg-brandPurple text-white p-4"> */}
+                <div className="bg-brand-purple text-white p-4">
+                    If this has purple background, config is working
+                </div>
+
+
             </form>
 
 
