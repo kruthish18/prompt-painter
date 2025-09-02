@@ -46,13 +46,7 @@ const imageAspectRatios = [
     { label: "768x512", value: "768x512" },
 ];
 
-// const videoAspectRatios = [
-//     { label: "Square (1:1)", value: "1080x1080" },
-//     { label: "Landscape (16:9)", value: "1920x1080" },
-//     { label: "Portrait (9:16)", value: "1080x1920" },
-// ];
-
-// Video aspect ratio options (used in dropdown)
+// Video sizes (labels are for the user; values are WxH used by the API)
 const videoAspectRatios = [
     { label: "1:1 Square - 480p", value: "640x640" },
     { label: "1:1 Square - 1080p", value: "1440x1440" },
@@ -65,7 +59,7 @@ const videoAspectRatios = [
 ];
 
 export default function PromptForm() {
-    // State Definitions
+    // Form + request state
     const [form, setForm] = useState<FormData>({
         characterName: "",
         description: "",
@@ -75,6 +69,7 @@ export default function PromptForm() {
     });
 
     const [imageUrl, setImageUrl] = useState("");
+    const [imageUUID, setImageUUID] = useState("");
     const [loading, setLoading] = useState(false);
     const [showVideoPrompt, setShowVideoPrompt] = useState(false);
     const [videoPrompt, setVideoPrompt] = useState(
@@ -93,11 +88,12 @@ export default function PromptForm() {
         setForm({ ...form, [e.target.name]: e.target.value });
     };
 
-    // Submit form to generate image
+    // Submit form to generate image. returns image URL + IDs we reuse for the video
     const handleSubmit = async (e: React.FormEvent) => {
         e.preventDefault();
         setLoading(true);
         setImageUrl("");
+        setImageUUID("");
         setTaskUUID("");
 
         try {
@@ -115,6 +111,7 @@ export default function PromptForm() {
             const data = await res.json();
             console.log("Generate API response:", data);
             setImageUrl(data.imageUrl);
+            setImageUUID(data.imageUUID);
             setTaskUUID(data.taskUUID);
         } catch (error) {
             console.error("Error generating image", error);
@@ -126,7 +123,7 @@ export default function PromptForm() {
 
     // Submit image + prompt to generate video
     const handleVideoGenerate = async () => {
-        if (!imageUrl || !videoPrompt.trim()) {
+        if (!imageUUID || !videoPrompt.trim()) {
             alert("Image or prompt missing");
             return;
         }
@@ -143,6 +140,7 @@ export default function PromptForm() {
             width,
             height,
             taskUUID,
+            imageUUID,
         });
 
 
@@ -154,22 +152,46 @@ export default function PromptForm() {
                     prompt: videoPrompt,
                     videoAspectRatio: form.videoAspectRatio,
                     taskUUID,
-                    inputImage: imageUrl,
+                    inputImage: imageUUID,
                 }),
             });
 
             const data = await res.json();
-            const videoUrl = data.videoUrl;
+            console.log("Video generation response:", data);
 
-            if (res.ok && videoUrl) {
-                setVideoUrl(videoUrl);
+            // Prefer the API’s URL; if not present, use a constructed fallback
+            const rawUrl =
+                (data.videoUrl as string | null) ??
+                (data.fallbackUrl as string | null) ??
+                (data.taskUUID ? `https://vm.runware.ai/video/ws/2/vi/${data.taskUUID}.mp4` : null);
 
-                console.log("Runware full video data:", data);
-
-            } else {
+            if (!res.ok) {
                 console.error("Video generation failed:", data);
                 alert("Something went wrong during video generation");
+                setvideoLoading(false);
+                return;
             }
+
+            if (!rawUrl) {
+                alert("Video task created but no URL returned. Please try again.");
+                setvideoLoading(false);
+                return;
+            }
+
+            // Warm the URL to avoid a stale, zero-second clip
+            const cleanUrl = rawUrl.split("?")[0];
+            for (let i = 0; i < 2; i++) {
+                try {
+                    const head = await fetch(cleanUrl, { method: "HEAD" });
+                    if (head.ok) break;
+                } catch { }
+                await new Promise(r => setTimeout(r, 800));
+            }
+
+            // Cache-bust the inline player
+            const playbackUrl = `${cleanUrl}?t=${Date.now()}`;
+            setVideoUrl(playbackUrl);
+
         } catch (err) {
             console.error("Error:", err);
             alert("server error");
@@ -178,7 +200,7 @@ export default function PromptForm() {
         }
     };
 
-    // Render Form
+    // Render Form for UI
     return (
         <div style={{ fontFamily: 'Inter, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif' }}>
 
@@ -292,7 +314,7 @@ export default function PromptForm() {
 
             </form>
 
-            {/* === Avatar Image Preview & Video Section === */}
+            {/* Avatar Image Preview & Video Section */}
             {imageUrl && (
                 <div className="mt-6 text-center">
                     <img
@@ -331,7 +353,7 @@ export default function PromptForm() {
                                     onChange={(e) => setVideoPrompt(e.target.value)}
                                     rows={3}
                                 />
-        
+
                                 <button
                                     className="w-full py-3 px-6 text-white font-semibold rounded-[8px] shadow-md hover:shadow-lg hover:scale-105 transform transition duration-300 ease-in-out focus:outline-none focus:ring-2 focus:ring-[var(--color-brand-purple)]"
                                     style={{ backgroundColor: "var(--color-brand-purple)" }}
@@ -352,28 +374,57 @@ export default function PromptForm() {
                                 key={videoUrl}
                                 src={videoUrl}
                                 controls
-                                autoPlay
                                 loop
-                                onError={(e) => {
-                                    console.error("Video failed to load", e);
-                                    alert("Video failed to load. Try reloading the page or regenerating.");
-                                }}
+                                playsInline
+                                crossOrigin="anonymous"
                                 preload="auto"
+                                onError={() => {
+                                    // one silent retry with a new cache-buster
+                                    const clean = videoUrl.split("?")[0];
+                                    const retryUrl = `${clean}?t=${Date.now() + 1}`;
+                                    if (retryUrl !== videoUrl) setVideoUrl(retryUrl);
+                                }}
+                                onLoadedMetadata={(e) => {
+                                    console.log("Loaded duration:", e.currentTarget.duration);
+                                }}
                                 className="mx-auto rounded shadow w-full max-w-lg"
                             >
                                 <source src={videoUrl} type="video/mp4" />
-                                Your browser does not support the video tag.
                             </video>
 
-                            <a
-                                href={videoUrl}
-                                download="anime-avatar-video.mp4"
-                                className="inline-block mt-2 text-green-600 underline"
-                            >
-                                Download Video
-                            </a>
+                            <div className="mt-4 text-center">
+                                <a
+                                    href={videoUrl}
+                                    target="_blank"
+                                    rel="noopener noreferrer"
+                                    className="inline-block px-4 py-2 text-white rounded mr-2"
+                                    style={{ backgroundColor: "var(--color-brand-purple)" }}
+                                >
+                                    Open Video in New Tab
+                                </a>
+
+                                {/* Direct download from the same origin helps avoid CORS issues */}
+                                <a
+                                    href={videoUrl}
+                                    download="anime-avatar-video.mp4"
+                                    className="inline-block px-4 py-2 text-white rounded"
+                                    style={{ backgroundColor: "var(--color-brand-purple)" }}
+                                >
+                                    Download Video
+                                </a>
+
+                            </div>
+
+                            <div className="mt-2 text-xs text-gray-500 text-center">
+                                Video URL:{" "}
+                                <a href={videoUrl} target="_blank" rel="noopener noreferrer" className="text-blue-600">
+                                    {videoUrl}
+                                </a>
+                            </div>
                         </div>
                     )}
+
+
                 </div>
             )}
         </div>

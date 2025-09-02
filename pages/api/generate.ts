@@ -64,6 +64,7 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
     return res.status(200).json({
         imageUrl: data.data[0].imageURL, 
         taskUUID: data.data[0].taskUUID,
+        imageUUID: data.data[0].imageUUID,
     });
   } catch (error) {
     console.error("Internal error:", error);
