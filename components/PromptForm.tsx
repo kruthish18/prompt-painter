@@ -178,55 +178,6 @@ export default function PromptForm() {
         }
     };
 
-    const inputStyle = {
-        fontFamily: 'Inter, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif',
-        fontSize: '14px',
-        fontWeight: '400',
-        lineHeight: '1.5',
-        color: '#374151',
-        backgroundColor: '#ffffff',
-        border: '1.5px solid #e5e7eb',
-        borderRadius: '8px',
-        padding: '12px 16px',
-        width: '100%',
-        transition: 'all 0.2s ease-in-out',
-        outline: 'none',
-    };
-
-    const selectStyle = {
-        ...inputStyle,
-        appearance: 'none' as const,
-        backgroundImage: `url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' fill='none' viewBox='0 0 20 20'%3e%3cpath stroke='%236b7280' stroke-linecap='round' stroke-linejoin='round' stroke-width='1.5' d='M6 8l4 4 4-4'/%3e%3c/svg%3e")`,
-        backgroundPosition: 'right 12px center',
-        backgroundRepeat: 'no-repeat',
-        backgroundSize: '16px',
-        paddingRight: '40px',
-    };
-
-    const labelStyle = {
-        fontFamily: 'Inter, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif',
-        fontSize: '14px',
-        fontWeight: '600',
-        color: '#111827',
-        marginBottom: '6px',
-        display: 'block',
-    };
-
-    const buttonStyle = {
-        fontFamily: 'Inter, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif',
-        fontSize: '16px',
-        fontWeight: '600',
-        color: '#ffffff',
-        backgroundColor: '#633cff',
-        border: 'none',
-        borderRadius: '8px',
-        padding: '14px 32px',
-        cursor: loading ? 'not-allowed' : 'pointer',
-        transition: 'all 0.2s ease-in-out',
-        outline: 'none',
-        opacity: loading ? 0.7 : 1,
-    };
-
     // Render Form
     return (
         <div style={{ fontFamily: 'Inter, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif' }}>
@@ -246,7 +197,7 @@ export default function PromptForm() {
                     border: '1px solid #f3f4f6',
                 }}
             >
-                {/* Row 1: Character Name + Anime Style */}
+                {/* Character Name Field*/}
                 <div>
                     <label className="block font-semibold">Character Name (optional)</label>
                     <input
@@ -259,6 +210,7 @@ export default function PromptForm() {
                     />
                 </div>
 
+                {/* Anime Style Dropdown */}
                 <div>
                     <label className="block font-semibold">Anime Style</label>
                     <select
@@ -292,15 +244,13 @@ export default function PromptForm() {
                     />
                 </div>
 
-                {/* Row 3: Aspect Ratios */}
+                {/* Row 3: Image Aspect Ratios */}
                 <div>
                     <label className="block font-semibold">Image Aspect Ratio</label>
                     <select
                         name="imageAspectRatio"
                         value={form.imageAspectRatio}
                         onChange={handleChange}
-                        // className="w-full border p-2 rounded"
-                        // className="w-full border border-gray-300 p-2 rounded-lg focus:outline-none focus:ring-2 focus:ring-brandPurple"
                         className="w-full px-4 py-3 rounded-xl border border-gray-300 focus:ring-2 focus:ring-[var(--color-brand-purple)] focus:outline-none"
 
                     >
@@ -312,14 +262,14 @@ export default function PromptForm() {
                     </select>
                 </div>
 
+      {/* Video Aspect Ratio */}
+
                 <div>
                     <label className="block font-semibold">Video Aspect Ratio</label>
                     <select
                         name="videoAspectRatio"
                         value={form.videoAspectRatio}
                         onChange={handleChange}
-                        // className="w-full border p-2 rounded"
-                        // className="w-full border border-gray-300 p-2 rounded-lg focus:outline-none focus:ring-2 focus:ring-brandPurple"
                         className="w-full px-4 py-3 rounded-xl border border-gray-300 focus:ring-2 focus:ring-[var(--color-brand-purple)] focus:outline-none"
 
                     >
@@ -331,17 +281,11 @@ export default function PromptForm() {
                     </select>
                 </div>
 
-                {/* Row 4: Centered Submit Button (spans 2 cols) */}
+                {/* Row 4: Centered Submit Button */}
                 <div className="md:col-span-2 flex justify-center">
                     <button
                         type="submit"
                         disabled={loading}
-                        // className="bg-blue-600 text-white px-6 py-2 rounded hover:bg-blue-700 transition"
-                        // className="bg-blue-600 text-white px-6 py-3 rounded-lg font-semibold hover:bg-blue-700 transition-all focus:ring-2 focus:ring-blue-400"
-                        // className="bg-brandPurple text-white px-6 py-3 mt-4 rounded-lg font-semibold hover:bg-purple-700 transition focus:ring-2 focus:ring-brandPurple"
-                        // className="w-full py-3 px-6 bg-gradient-to-r from-purple-500 to-indigo-600 text-white font-semibold rounded-full shadow-lg hover:shadow-2xl hover:scale-105 transform transition duration-300 ease-in-out focus:outline-none focus:ring-2 focus:ring-purple-300"    
-                        // className="w-full py-3 px-6 var(--color-brand-purple) text-white font-semibold rounded-full shadow-lg hover:shadow-2xl hover:scale-105 transform transition duration-300 ease-in-out focus:outline-none focus:ring-2 focus:ring-brandPurple/50"
-                        // style={{ backgroundColor: 'var(--color-brand-purple)' }}
                         className="w-full py-3 px-6 text-white font-semibold rounded-[8px] shadow-md hover:shadow-lg hover:scale-105 transform transition duration-300 ease-in-out focus:outline-none focus:ring-2 focus:ring-[var(--color-brand-purple)]"
                         style={{ backgroundColor: "var(--color-brand-purple)" }}
                     >
@@ -351,27 +295,7 @@ export default function PromptForm() {
 
             </form>
 
-
-            {/* <div className="mt-6">
-                <label className="block font-semibold">Motion Prompt</label>
-                <input
-                    type="text"
-                    value={videoPrompt}
-                    onChange={(e) => setVideoPrompt(e.target.value)}
-                    className="w-full border p-2 rounded"
-                    placeholder="e.g. blinking eyes, wind blowing"
-                />
-
-                <button
-                    onClick={handleVideoGenerate}
-                    disabled={loading || !imageUrl}
-                    className="mt-2 bg-purple-600 text-white px-4 py-2 rounded hover:bg-purple-700 transition"
-                >
-                    {loading ? "Generating Video..." : "Generate Video from Image"}
-                </button>
-            </div> */}
-
-
+            {/* === Avatar Image Preview & Video Section === */}
             {imageUrl && (
                 <div className="mt-6 text-center">
                     <img
@@ -384,18 +308,11 @@ export default function PromptForm() {
                         download="anime-avatar.png"
                         className="inline-block mt-2 text-blue-600 underline"
                     >
-                        Download Image ⬇️
+                        Download Image
                     </a>
 
                     {/* New: Video Creation Section */}
                     <div className="mt-8 text-left max-w-lg mx-auto">
-                        {/* <button
-                            className="rounded-[8px] hover:bg-purple-700 transition bg-gradient-to-r from-purple-500 to-indigo-600 text-white px-4 py-2 font-semibold rounded-full shadow-lg hover:shadow-2xl hover:scale-105 transform transition duration-300 ease-in-out focus:outline-none focus:ring-2 focus:ring-purple-300"
-                            onClick={() => setShowVideoPrompt(true)}
-                        >
-                            Create Anime Video
-                        </button> */}
-
                         <button
                             className="w-full rounded-[8px] text-white px-4 py-2 font-semibold shadow-md hover:shadow-lg hover:scale-105 transform transition duration-300 ease-in-out focus:outline-none focus:ring-2 focus:ring-[var(--color-brand-purple)]"
                             style={{ backgroundColor: "var(--color-brand-purple)" }}
@@ -463,7 +380,7 @@ export default function PromptForm() {
                                 download="anime-avatar-video.mp4"
                                 className="inline-block mt-2 text-green-600 underline"
                             >
-                                Download Video ⬇️
+                                Download Video
                             </a>
                         </div>
                     )}

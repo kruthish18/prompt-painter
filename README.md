@@ -89,7 +89,7 @@ prompt-painter/
 ├── pages/
 │   ├── index.tsx         # Landing page with generation form
 │   ├── _app.tsx          # App wrapper
-│   └── api/              # (Optional) API route handlers
+│   └── api/              # API route handlers
 ├── styles/
 │   └── globals.css
 ├── tailwind.config.js

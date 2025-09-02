@@ -24,7 +24,7 @@ export default function Home() {
 
 
         <p className="text-center text-gray-600 max-w-xl mb-8 animate-fade-in delay-150">
-          Describe your anime character and bring them to life with stunning AI-generated avatars.
+          Describe your anime character and bring them to life with stunning <br/>AI-generated avatars.
         </p>
 
         {/* Card Wrapper */}
