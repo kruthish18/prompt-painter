@@ -159,38 +159,39 @@ export default function PromptForm() {
             const data = await res.json();
             console.log("Video generation response:", data);
 
-            // Prefer the API’s URL; if not present, use a constructed fallback
+            const videoUrl = data.videoUrl;
+
+            // Prefer the API-provided URL. if not present, use a constructed fallback
             const rawUrl =
-                (data.videoUrl as string | null) ??
-                (data.fallbackUrl as string | null) ??
-                (data.taskUUID ? `https://vm.runware.ai/video/ws/2/vi/${data.taskUUID}.mp4` : null);
+            (data.videoUrl as string | null) ??
+            (data.fallbackUrl as string | null) ??
+            (data.taskUUID ? `https://vm.runware.ai/video/ws/2/vi/${data.taskUUID}.mp4` : null);
 
             if (!res.ok) {
-                console.error("Video generation failed:", data);
-                alert("Something went wrong during video generation");
-                setvideoLoading(false);
-                return;
+            console.error("Video generation failed:", data);
+            alert("Something went wrong during video generation");
+            setvideoLoading(false);
+            return;
             }
-
             if (!rawUrl) {
-                alert("Video task created but no URL returned. Please try again.");
-                setvideoLoading(false);
-                return;
+            alert("Video task created but no URL returned. Please try again.");
+            setvideoLoading(false);
+            return;
             }
 
             // Warm the URL to avoid a stale, zero-second clip
             const cleanUrl = rawUrl.split("?")[0];
             for (let i = 0; i < 2; i++) {
-                try {
-                    const head = await fetch(cleanUrl, { method: "HEAD" });
-                    if (head.ok) break;
-                } catch { }
-                await new Promise(r => setTimeout(r, 800));
+            try {
+                const head = await fetch(cleanUrl, { method: "HEAD" });
+                if (head.ok) break;
+            } catch {}
+            await new Promise(r => setTimeout(r, 800));
             }
 
             // Cache-bust the inline player
             const playbackUrl = `${cleanUrl}?t=${Date.now()}`;
-            setVideoUrl(playbackUrl);
+            setVideoUrl(playbackUrl); 
 
         } catch (err) {
             console.error("Error:", err);
@@ -200,7 +201,7 @@ export default function PromptForm() {
         }
     };
 
-    // Render Form for UI
+    // Render Form
     return (
         <div style={{ fontFamily: 'Inter, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif' }}>
 
@@ -314,7 +315,7 @@ export default function PromptForm() {
 
             </form>
 
-            {/* Avatar Image Preview & Video Section */}
+            {/* === Avatar Image Preview & Video Section === */}
             {imageUrl && (
                 <div className="mt-6 text-center">
                     <img
@@ -381,16 +382,15 @@ export default function PromptForm() {
                                 onError={() => {
                                     // one silent retry with a new cache-buster
                                     const clean = videoUrl.split("?")[0];
-                                    const retryUrl = `${clean}?t=${Date.now() + 1}`;
-                                    if (retryUrl !== videoUrl) setVideoUrl(retryUrl);
+                                    const retry = `${clean}?t=${Date.now() + 1}`;
+                                    if (retry !== videoUrl) setVideoUrl(retry);
                                 }}
                                 onLoadedMetadata={(e) => {
                                     console.log("Loaded duration:", e.currentTarget.duration);
                                 }}
                                 className="mx-auto rounded shadow w-full max-w-lg"
-                            >
-                                <source src={videoUrl} type="video/mp4" />
-                            </video>
+                            />
+
 
                             <div className="mt-4 text-center">
                                 <a

@@ -105,11 +105,18 @@ Demo
 
 A short video walkthrough is provided alongside this repository, showing:
 
--   How the application is structured
+- How the application is structured
+- How the Runware API is integrated
+- The process of generating images and videos from prompts
 
--   How the Runware API is integrated
+**Part 1 – Backend + API Integration**  
+[Watch Part 1 Demo](https://www.loom.com/share/6af89ab492354360a22e501393d7980f?sid=48d16ed1-6bce-4887-ad71-bb71fe9b8d3e)
 
--   The process of generating images and videos from prompts
+**Part 2 – Frontend Walkthrough**  
+[Watch Part 2 Demo](https://www.loom.com/share/a9dc9a9131ff43ffa50871c14d491e12?sid=01da2a8f-f311-4105-9f75-931342ed12d2)
+
+**Live Demo – Hosted on Vercel**  
+[Prompt Painter (Vercel Deployment)](https://prompt-painter.vercel.app)
 
 * * * * *
 
