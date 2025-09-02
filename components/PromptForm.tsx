@@ -206,7 +206,7 @@ export default function PromptForm() {
                         value={form.characterName}
                         onChange={handleChange}
                         className="w-full px-4 py-3 rounded-xl border border-gray-300 focus:ring-2 focus:ring-[var(--color-brand-purple)] focus:outline-none"
-                        placeholder="e.g. Hikari"
+                        placeholder="e.g. Nezuko"
                     />
                 </div>
 
@@ -239,7 +239,7 @@ export default function PromptForm() {
                         onChange={handleChange}
                         className="w-full px-4 py-3 rounded-xl border border-gray-300 focus:ring-2 focus:ring-[var(--color-brand-purple)] focus:outline-none"
                         rows={3}
-                        placeholder="e.g. pink-haired girl with a cyberpunk jacket"
+                        placeholder="e.g. A girl with fair skin, long black hair that fades to flame orange, pale pink eyes, and a bamboo muzzle, in her pink kimono"
                         required
                     />
                 </div>
