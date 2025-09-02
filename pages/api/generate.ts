@@ -37,7 +37,7 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
           outputType: "URL",
           outputFormat: "JPG",
           deliveryMethod: "sync",
-          model: "civitai:129218@141668", 
+          model: "civitai:129218@141668", //MasterAnime v1
           width,
           height,
           steps: 30,

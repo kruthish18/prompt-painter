@@ -59,9 +59,9 @@ const videoAspectRatios = [
     { label: "16:9 Landscape - 480p", value: "1920x1088" },
     { label: "16:9 Landscape - 1080p", value: "1920x1088" },
     { label: "21:9 Ultra-Wide/Landscape - 480p", value: "960x416" },
-    { label: "21:9 Ultra-Wide/Landscape - 480p", value: "2176x928" },
+    { label: "21:9 Ultra-Wide/Landscape - 1080p", value: "2176x928" },
     { label: "9:16 Tall/Portrait - 480p", value: "480x864" },
-    { label: "9:16 Tall/Portrait - 480p", value: "1088x1920" },
+    { label: "9:16 Tall/Portrait - 1080p", value: "1088x1920" },
 ];
 
 export default function PromptForm() {
@@ -181,7 +181,7 @@ export default function PromptForm() {
     // Render Form
     return (
         <div style={{ fontFamily: 'Inter, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif' }}>
-    
+
             {/* The full form layout is in a grid that adjusts responsively */}
             <form
                 onSubmit={handleSubmit}
@@ -217,9 +217,6 @@ export default function PromptForm() {
                         name="style"
                         value={form.style}
                         onChange={handleChange}
-                        // className="w-full border p-2 rounded"
-                        // className="w-full border border-gray-300 p-2 rounded-lg focus:outline-none focus:ring-2 focus:ring-brandPurple"
-                        // className="w-full border border-gray-300 p-2 rounded-lg focus:outline-none focus:ring-2 focus:ring-brandPurple bg-white text-gray-800"
                         className="w-full px-4 py-3 rounded-xl border border-gray-300 focus:ring-2 focus:ring-[var(--color-brand-purple)] focus:outline-none"
                     >
                         {animeStyles.map((style) => (
@@ -262,7 +259,7 @@ export default function PromptForm() {
                     </select>
                 </div>
 
-      {/* Video Aspect Ratio */}
+                {/* Video Aspect Ratio */}
 
                 <div>
                     <label className="block font-semibold">Video Aspect Ratio</label>
@@ -334,14 +331,7 @@ export default function PromptForm() {
                                     onChange={(e) => setVideoPrompt(e.target.value)}
                                     rows={3}
                                 />
-                                {/* <button
-                                    className="w-full py-3 px-6 bg-gradient-to-r from-purple-500 to-indigo-600 text-white font-semibold rounded-full shadow-lg hover:shadow-2xl hover:scale-105 transform transition duration-300 ease-in-out focus:outline-none focus:ring-2 focus:ring-purple-300"
-                                    onClick={handleVideoGenerate}
-                                    disabled={videoLoading}
-                                >
-                                    {videoLoading ? "Generating Video..." : "Generate Video"}
-                                </button> */}
-
+        
                                 <button
                                     className="w-full py-3 px-6 text-white font-semibold rounded-[8px] shadow-md hover:shadow-lg hover:scale-105 transform transition duration-300 ease-in-out focus:outline-none focus:ring-2 focus:ring-[var(--color-brand-purple)]"
                                     style={{ backgroundColor: "var(--color-brand-purple)" }}
