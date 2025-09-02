@@ -29,9 +29,9 @@ Tech Stack
 
 -   Next.js -- React-based framework for the frontend
 
--   [Tailwind CSS v4](https://tailwindcss.com/?utm_source=chatgpt.com) -- Styling and custom theme configuration
+-   Tailwind CSS v4 -- Styling and custom theme configuration
 
--   [Runware API](https://runware.ai?utm_source=chatgpt.com) -- Image and video generation backend
+-   [Runware API](https://runware.ai.com) -- Image and video generation backend
 
 -   TypeScript -- Static typing for maintainability
 
@@ -42,7 +42,7 @@ Getting Started
 
 ### 1\. Clone the repository
 
-`git clone https://github.com/<your-username>/prompt-painter.git
+`git clone https://github.com/kruthish18/prompt-painter.git
 cd prompt-painter`
 
 ### 2\. Install dependencies
@@ -81,7 +81,9 @@ Features
 Project Structure
 -----------------
 
-`prompt-painter/
+
+```bash
+prompt-painter/
 ├── components/
 │   └── PromptForm.tsx    # Main form UI for inputs
 ├── pages/
@@ -92,7 +94,9 @@ Project Structure
 │   └── globals.css
 ├── tailwind.config.js
 ├── postcss.config.js
-└── next.config.ts`
+└── next.config.ts
+```
+
 
 * * * * *
 
@@ -119,114 +123,6 @@ Technical Decisions
 -   The project emphasizes **clarity and simplicity**, suitable for developer education and live demos.
 
 * * * * *
-
-Contributing
-------------
-
-This is a demo project created for assessment purposes, but contributions, feedback, or ideas for extensions are welcome.
-
-
-
-
-
-Prompt Painter
-==============
-
-Prompt Painter is a simple yet powerful demo application built with **Next.js** and **Tailwind CSS** that integrates the **Runware API** to generate images and videos from custom prompts.
-
-This project was developed as part of the **Runware Developer Evangelist Practical Assessment** to demonstrate how easy it is for developers to build creative media applications using Runware’s inference-as-a-service platform.
-
-Overview
---------
-
-Prompt Painter allows developers and creators to:
-
-*   Generate anime-style avatars from text prompts.
-    
-*   Customize the output by selecting different **art styles** (Ghibli, Cyberpunk, Retro 90s, etc.).
-    
-*   Produce both **image outputs** and **short videos** directly from the Runware API.
-    
-*   Experiment with different aspect ratios for creative flexibility.
-    
-
-The project is designed as a **minimal but functional showcase** for presenting at a developer meetup or workshop, highlighting both the **ease of integration** and the **capabilities of Runware’s API**.
-
-Tech Stack
-----------
-
-*   Next.js – React-based framework for the frontend
-    
-*   [Tailwind CSS v4](https://tailwindcss.com/?utm_source=chatgpt.com) – Styling and custom theme configuration
-    
-*   [Runware API](https://runware.ai?utm_source=chatgpt.com) – Image and video generation backend
-    
-*   TypeScript – Static typing for maintainability
-    
-
-Getting Started
----------------
-
-### 1\. Clone the repository
-
-Plain textANTLR4BashCC#CSSCoffeeScriptCMakeDartDjangoDockerEJSErlangGitGoGraphQLGroovyHTMLJavaJavaScriptJSONJSXKotlinLaTeXLessLuaMakefileMarkdownMATLABMarkupObjective-CPerlPHPPowerShell.propertiesProtocol BuffersPythonRRubySass (Sass)Sass (Scss)SchemeSQLShellSwiftSVGTSXTypeScriptWebAssemblyYAMLXML`   git clone https://github.com//prompt-painter.git  cd prompt-painter   `
-
-### 2\. Install dependencies
-
-Plain textANTLR4BashCC#CSSCoffeeScriptCMakeDartDjangoDockerEJSErlangGitGoGraphQLGroovyHTMLJavaJavaScriptJSONJSXKotlinLaTeXLessLuaMakefileMarkdownMATLABMarkupObjective-CPerlPHPPowerShell.propertiesProtocol BuffersPythonRRubySass (Sass)Sass (Scss)SchemeSQLShellSwiftSVGTSXTypeScriptWebAssemblyYAMLXML`   npm install   `
-
-### 3\. Configure environment variables
-
-Create a .env.local file in the root directory and add your Runware API key:
-
-Plain textANTLR4BashCC#CSSCoffeeScriptCMakeDartDjangoDockerEJSErlangGitGoGraphQLGroovyHTMLJavaJavaScriptJSONJSXKotlinLaTeXLessLuaMakefileMarkdownMATLABMarkupObjective-CPerlPHPPowerShell.propertiesProtocol BuffersPythonRRubySass (Sass)Sass (Scss)SchemeSQLShellSwiftSVGTSXTypeScriptWebAssemblyYAMLXML`   RUNWARE_API_KEY=your_api_key_here   `
-
-### 4\. Run the development server
-
-Plain textANTLR4BashCC#CSSCoffeeScriptCMakeDartDjangoDockerEJSErlangGitGoGraphQLGroovyHTMLJavaJavaScriptJSONJSXKotlinLaTeXLessLuaMakefileMarkdownMATLABMarkupObjective-CPerlPHPPowerShell.propertiesProtocol BuffersPythonRRubySass (Sass)Sass (Scss)SchemeSQLShellSwiftSVGTSXTypeScriptWebAssemblyYAMLXML`   npm run dev   `
-
-Open [http://localhost:3000](http://localhost:3000) in your browser.
-
-Features
---------
-
-*   **Anime Avatar Generation** – Create images in styles like Studio Ghibli, Shonen, Cyberpunk, Retro 90s, and more.
-    
-*   **Video Generation** – Extend prompts into short animated video sequences.
-    
-*   **Customizable Ratios** – Choose different aspect ratios for images and videos.
-    
-*   **Interactive UI** – Simple form with dropdowns for style selection and text-based prompts.
-    
-*   **Built for Developers** – Code is structured for clarity, showing how to integrate the Runware API with minimal setup.
-    
-
-Project Structure
------------------
-
-Plain textANTLR4BashCC#CSSCoffeeScriptCMakeDartDjangoDockerEJSErlangGitGoGraphQLGroovyHTMLJavaJavaScriptJSONJSXKotlinLaTeXLessLuaMakefileMarkdownMATLABMarkupObjective-CPerlPHPPowerShell.propertiesProtocol BuffersPythonRRubySass (Sass)Sass (Scss)SchemeSQLShellSwiftSVGTSXTypeScriptWebAssemblyYAMLXML`   prompt-painter/  ├── components/  │   └── PromptForm.tsx    # Main form UI for inputs  ├── pages/  │   ├── index.tsx         # Landing page with generation form  │   ├── _app.tsx          # App wrapper  │   └── api/              # (Optional) API route handlers  ├── styles/  │   └── globals.css  ├── tailwind.config.js  ├── postcss.config.js  └── next.config.ts   `
-
-Demo
-----
-
-A short video walkthrough is provided alongside this repository, showing:
-
-*   How the application is structured
-    
-*   How the Runware API is integrated
-    
-*   The process of generating images and videos from prompts
-    
-
-Technical Decisions
--------------------
-
-*   **Next.js + Tailwind CSS** were chosen to quickly build a frontend demo that feels modern and responsive.
-    
-*   **Runware API** handles all media inference, removing the need for local GPU compute.
-    
-*   The project emphasizes **clarity and simplicity**, suitable for developer education and live demos.
-    
 
 Contributing
 ------------
