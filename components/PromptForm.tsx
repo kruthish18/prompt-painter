@@ -109,7 +109,6 @@ export default function PromptForm() {
             });
 
             const data = await res.json();
-            console.log("Generate API response:", data);
             setImageUrl(data.imageUrl);
             setImageUUID(data.imageUUID);
             setTaskUUID(data.taskUUID);
@@ -135,15 +134,6 @@ export default function PromptForm() {
         setvideoLoading(true);
         setVideoUrl("");
 
-        console.log("Submitting for video with values:", {
-            prompt: videoPrompt,
-            width,
-            height,
-            taskUUID,
-            imageUUID,
-        });
-
-
         try {
             const res = await fetch("/api/video", {
                 method: "POST",
@@ -157,8 +147,6 @@ export default function PromptForm() {
             });
 
             const data = await res.json();
-            console.log("Video generation response:", data);
-
             const videoUrl = data.videoUrl;
 
             // Prefer the API-provided URL. if not present, use a constructed fallback

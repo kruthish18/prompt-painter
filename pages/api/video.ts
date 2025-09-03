@@ -66,11 +66,6 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
         // Predictable CDN fallback derived from the task id
         const fallbackUrl = `https://vm.runware.ai/video/ws/2/vi/${taskUUID}.mp4`;
 
-        console.log('Runware video response (trimmed):', {
-            taskUUID,
-            hasVideoUrl: !!videoUrl,
-        });
-
         return res.status(200).json({
             videoUrl,       
             fallbackUrl,    // often becomes playable within a few seconds
